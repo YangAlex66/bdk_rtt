@@ -1,0 +1,44 @@
+from building import *
+
+cwd  = GetCurrentDir()
+
+src = []
+src += ["cmd_evm.c"]
+src += ["cmd_rx_sensitivity.c"]
+src += ["command_line.c"]
+
+path = []
+path += [cwd + '/']
+
+sys_config = os.path.join(cwd, '..', '..', '..', 'config', 'sys_config.h')
+options = LocalOptions(sys_config)
+
+uart_debug_lib_name = 'uart_debug'
+platform_match = 'yes'
+
+if (GetLocalDepend(options, 'CFG_SOC_NAME') == 'SOC_BK7231U'):
+    uart_debug_lib_name += '_7231u'
+elif (GetLocalDepend(options, 'CFG_SOC_NAME') == 'SOC_BK7231N'):
+    uart_debug_lib_name += '_7231n'
+elif (GetLocalDepend(options, 'CFG_SOC_NAME') == 'SOC_BK7221U'):
+    uart_debug_lib_name += '_7251'
+elif (GetLocalDepend(options, 'CFG_SOC_NAME') == 'SOC_BK7271'):
+    uart_debug_lib_name += '_7271'
+else:
+    uart_debug_lib_name += '_unknown'
+    platform_match = 'no'
+
+libs = [uart_debug_lib_name]
+libpath = [cwd + '/']
+
+cppdefines = []
+
+if platform_match == 'yes':
+    print 'using uart debug: lib' + uart_debug_lib_name + '.a'
+    group_use_lib = DefineGroup('beken_uart_debug_lib', [], depend = [''], CPPPATH = path, CPPDEFINES = cppdefines, LIBS = libs, LIBPATH = libpath)
+    group_build_lib = DefineGroup('beken_uart_debug', src, depend = ['BUILD_LIB'], CPPPATH = path, CPPDEFINES = cppdefines, LIBS = libs, LIBPATH = libpath, LIBNAME = 'lib' + uart_debug_lib_name + '.a')
+    group = group_use_lib + group_build_lib
+else:
+    group = []
+
+Return('group')

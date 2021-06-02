@@ -1,0 +1,141 @@
+from building import *
+
+cwd  = GetCurrentDir()
+
+sys_config = os.path.join(cwd, '..', '..', '..', 'config', 'sys_config.h')
+options = LocalOptions(sys_config)
+
+src = []
+
+hostapd_path = ""
+src += [hostapd_path + "wpa_supplicant/op_classes.c"]
+
+if (GetLocalDepend(options, 'CFG_WPA3') == 1):
+    src += [hostapd_path + "src/common/sae.c"]
+    src += [hostapd_path + "src/common/dragonfly.c"]
+    src += [hostapd_path + "src/crypto/aes-ctr.c"]
+    src += [hostapd_path + "src/crypto/aes-omac1.c"]
+    src += [hostapd_path + "src/crypto/aes-siv.c"]
+    src += [hostapd_path + "src/crypto/crypto_wolfssl.c"]
+    src += [hostapd_path + "src/crypto/dh_group5.c"]
+    src += [hostapd_path + "src/crypto/dh_groups.c"]
+    src += [hostapd_path + "src/crypto/sha256.c"]
+    src += [hostapd_path + "src/crypto/sha256-internal.c"]
+    src += [hostapd_path + "src/crypto/sha256-prf.c"]
+    src += ["../func/wolfssl/wolfcrypt/src/wolfmath.c"]
+    src += ["../func/wolfssl/wolfcrypt/src/memory.c"]
+    src += ["../func/wolfssl/wolfcrypt/src/tfm.c"]
+    src += ["../func/wolfssl/wolfcrypt/src/ecc.c"]
+    src += ["../func/wolfssl/wolfcrypt/src/random.c"]
+    src += ["../func/wolfssl/wolfcrypt/src/sha256.c"]
+
+src += [hostapd_path + "bk_patch/ddrv.c"]
+src += [hostapd_path + "bk_patch/signal.c"]
+src += [hostapd_path + "bk_patch/sk_intf.c"]
+src += [hostapd_path + "bk_patch/fake_socket.c"]
+src += [hostapd_path + "hostapd/main_none.c"]
+src += [hostapd_path + "src/ap/ap_config.c"]
+src += [hostapd_path + "src/ap/ap_drv_ops.c"]
+src += [hostapd_path + "src/ap/ap_list.c"]
+src += [hostapd_path + "src/ap/ap_mlme.c"]
+#src += [hostapd_path + "src/ap/authsrv.c"]
+src += [hostapd_path + "src/ap/beacon.c"]
+#src += [hostapd_path + "src/ap/bss_load.c"]
+#src += [hostapd_path + "src/ap/dfs.c"]
+src += [hostapd_path + "src/ap/drv_callbacks.c"]
+#src += [hostapd_path + "src/ap/eap_user_db.c"]
+src += [hostapd_path + "src/ap/hostapd.c"]
+src += [hostapd_path + "src/ap/hw_features.c"]
+src += [hostapd_path + "src/ap/ieee802_11_auth.c"]
+src += [hostapd_path + "src/ap/ieee802_11.c"]
+src += [hostapd_path + "src/ap/ieee802_11_ht.c"]
+src += [hostapd_path + "src/ap/ieee802_11_shared.c"]
+src += [hostapd_path + "src/ap/ieee802_1x.c"]
+src += [hostapd_path + "src/ap/pmksa_cache_auth.c"]
+src += [hostapd_path + "src/ap/sta_info.c"]
+src += [hostapd_path + "src/ap/tkip_countermeasures.c"]
+src += [hostapd_path + "src/ap/utils.c"]
+src += [hostapd_path + "src/ap/wmm.c"]
+src += [hostapd_path + "src/ap/wpa_auth.c"]
+src += [hostapd_path + "src/ap/wpa_auth_glue.c"]
+src += [hostapd_path + "src/ap/wpa_auth_ie.c"]
+src += [hostapd_path + "src/common/hw_features_common.c"]
+src += [hostapd_path + "src/common/ieee802_11_common.c"]
+src += [hostapd_path + "src/common/wpa_common.c"]
+src += [hostapd_path + "src/common/notifier.c"]
+src += [hostapd_path + "src/crypto/aes-internal.c"]
+src += [hostapd_path + "src/crypto/aes-internal-dec.c"]
+src += [hostapd_path + "src/crypto/aes-internal-enc.c"]
+src += [hostapd_path + "src/crypto/aes-unwrap.c"]
+src += [hostapd_path + "src/crypto/aes-wrap.c"]
+src += [hostapd_path + "src/crypto/md5.c"]
+src += [hostapd_path + "src/crypto/md5-internal.c"]
+src += [hostapd_path + "src/crypto/rc4.c"]
+src += [hostapd_path + "src/crypto/sha1.c"]
+src += [hostapd_path + "src/crypto/sha1-internal.c"]
+src += [hostapd_path + "src/crypto/sha1-pbkdf2.c"]
+src += [hostapd_path + "src/crypto/sha1-prf.c"]
+src += [hostapd_path + "src/crypto/tls_none.c"]
+src += [hostapd_path + "src/drivers/driver_beken.c"]
+src += [hostapd_path + "src/drivers/driver_common.c"]
+src += [hostapd_path + "src/drivers/drivers.c"]
+#src += [hostapd_path + "src/eap_common/eap_common.c"]
+#src += [hostapd_path + "src/eapol_auth/eapol_auth_sm.c"]
+#src += [hostapd_path + "src/eap_server/eap_server.c"]
+#src += [hostapd_path + "src/eap_server/eap_server_methods.c"]
+src += [hostapd_path + "src/l2_packet/l2_packet_none.c"]
+#src += [hostapd_path + "src/rsn_supp/preauth.c"]
+src += [hostapd_path + "src/rsn_supp/wpa.c"]
+src += [hostapd_path + "src/rsn_supp/wpa_ie.c"]
+src += [hostapd_path + "src/utils/common.c"]
+src += [hostapd_path + "src/utils/eloop.c"]
+src += [hostapd_path + "src/utils/os_none.c"]
+src += [hostapd_path + "src/utils/wpabuf.c"]
+src += [hostapd_path + "src/utils/wpa_debug.c"]
+src += [hostapd_path + "wpa_supplicant/blacklist.c"]
+src += [hostapd_path + "wpa_supplicant/bss.c"]
+src += [hostapd_path + "wpa_supplicant/config.c"]
+src += [hostapd_path + "wpa_supplicant/config_none.c"]
+src += [hostapd_path + "wpa_supplicant/events.c"]
+src += [hostapd_path + "wpa_supplicant/main_supplicant.c"]
+src += [hostapd_path + "wpa_supplicant/notify.c"]
+src += [hostapd_path + "wpa_supplicant/wmm_ac.c"]
+src += [hostapd_path + "wpa_supplicant/wpa_scan.c"]
+src += [hostapd_path + "wpa_supplicant/wpas_glue.c"]
+src += [hostapd_path + "wpa_supplicant/wpa_supplicant.c"]
+src += [hostapd_path + "src/common/wpa_psk_cache.c"]
+src += [hostapd_path + "wpa_supplicant/wlan.c"]
+src += [hostapd_path + "wpa_supplicant/ctrl_iface.c"]
+
+path = []
+path += [cwd + '/']
+
+supplicant_lib_name = 'supplicant'
+platform_match = 'yes'
+
+if (GetLocalDepend(options, 'CFG_SOC_NAME') == 'SOC_BK7231U'):
+    supplicant_lib_name += '_7231u'
+elif (GetLocalDepend(options, 'CFG_SOC_NAME') == 'SOC_BK7231N'):
+    supplicant_lib_name += '_7231n'
+elif (GetLocalDepend(options, 'CFG_SOC_NAME') == 'SOC_BK7221U'):
+    supplicant_lib_name += '_7251'
+elif (GetLocalDepend(options, 'CFG_SOC_NAME') == 'SOC_BK7271'):
+    supplicant_lib_name += '_7271'
+else:
+    supplicant_lib_name += '_unknown'
+    platform_match = 'no'
+
+libs = [supplicant_lib_name]
+libpath = [cwd + '/']
+
+cppdefines = []
+
+if platform_match == 'yes':
+    print 'using supplicant: lib' + supplicant_lib_name + '.a'
+    group_use_lib = DefineGroup('beken_supplicant_lib', [], depend = [''], CPPPATH = path, CPPDEFINES = cppdefines, LIBS = libs, LIBPATH = libpath)
+    group_build_lib = DefineGroup('beken_supplicant', src, depend = ['BUILD_LIB'], CPPPATH = path, CPPDEFINES = cppdefines, LIBS = libs, LIBPATH = libpath, LIBNAME = 'lib' + supplicant_lib_name + '.a')
+    group = group_use_lib + group_build_lib
+else:
+    group = []
+
+Return('group')

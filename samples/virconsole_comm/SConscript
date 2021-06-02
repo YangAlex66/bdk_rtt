@@ -1,0 +1,30 @@
+import os
+from building import * 
+
+Import('RTT_ROOT')
+Import('rtconfig')
+
+# get current dir path
+cwd = GetCurrentDir()
+CPPPATH = [
+cwd + '/comm_uart',
+cwd + '/virtual_console',
+]
+
+src = []
+src += Glob('comm_uart/*.c')
+src += Glob('virtual_console/*.c')
+src += Glob('*.c')
+
+# add group to IDE project
+objs = DefineGroup('virconsole_comm', src, depend = ['PKG_VIRCONSOLE_COMM'], CPPPATH = CPPPATH)
+
+# traversal subscript
+list = os.listdir(cwd)
+for d in list:
+    path = os.path.join(cwd, d)
+    if os.path.isfile(os.path.join(path, 'SConscript')):
+        objs = objs + SConscript(os.path.join(d, 'SConscript'))
+
+Return('objs')
+

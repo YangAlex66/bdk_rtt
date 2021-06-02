@@ -1,0 +1,15 @@
+# RT-Thread building script for component
+
+from building import *
+
+cwd     = GetCurrentDir()
+src     = Glob('*.c') + Glob('*.S')
+
+LIBS        = ["libmotion_det.a"]
+LIBS				+= ["libjpeg.a"]
+
+libpath = [cwd]
+CPPPATH = [cwd,os.path.join(cwd,'..')]
+group = DefineGroup('motion_det', src,depend = [''], CPPPATH = CPPPATH,LIBS=LIBS, LIBPATH = libpath)
+
+Return('group')

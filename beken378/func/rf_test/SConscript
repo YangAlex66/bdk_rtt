@@ -1,0 +1,43 @@
+from building import *
+
+cwd  = GetCurrentDir()
+
+src = []
+src += ["rx_sensitivity.c"]
+src += ["tx_evm.c"]
+
+path = []
+path += [cwd + '/']
+
+sys_config = os.path.join(cwd, '..', '..', '..', 'config', 'sys_config.h')
+options = LocalOptions(sys_config)
+
+rf_test_lib_name = 'rf_test'
+platform_match = 'yes'
+
+if (GetLocalDepend(options, 'CFG_SOC_NAME') == 'SOC_BK7231U'):
+    rf_test_lib_name += '_7231u'
+elif (GetLocalDepend(options, 'CFG_SOC_NAME') == 'SOC_BK7231N'):
+    rf_test_lib_name += '_7231n'
+elif (GetLocalDepend(options, 'CFG_SOC_NAME') == 'SOC_BK7221U'):
+    rf_test_lib_name += '_7251'
+elif (GetLocalDepend(options, 'CFG_SOC_NAME') == 'SOC_BK7271'):
+    rf_test_lib_name += '_7271'
+else:
+    rf_test_lib_name += '_unknown'
+    platform_match = 'no'
+
+libs = [rf_test_lib_name]
+libpath = [cwd + '/']
+
+cppdefines = []
+
+if platform_match == 'yes':
+    print 'using rf_test: lib' + rf_test_lib_name + '.a'
+    group_use_lib = DefineGroup('beken_rf_test_lib', [], depend = [''], CPPPATH = path, CPPDEFINES = cppdefines, LIBS = libs, LIBPATH = libpath)
+    group_build_lib = DefineGroup('beken_rf_test', src, depend = ['BUILD_LIB'], CPPPATH = path, CPPDEFINES = cppdefines, LIBS = libs, LIBPATH = libpath, LIBNAME = 'lib' + rf_test_lib_name + '.a')
+    group = group_use_lib + group_build_lib
+else:
+    group = []
+
+Return('group')

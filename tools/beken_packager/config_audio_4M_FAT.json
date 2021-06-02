@@ -1,0 +1,29 @@
+{
+    "magic": "RT-Thread",
+    "version": "0.1",
+    "count": 2,
+    "section": [
+        {
+            "firmware": "bootloader_bk7251_4M_FAT_uart2_20181220.bin",
+            "version": "4M.1220",
+            "partition": "bootloader",
+            "start_addr": "0x00000000",
+            "size": "65280"
+        },
+        {
+            "firmware": "../../rtthread.bin",
+            "version": "4M_FAT.1220",
+            "partition": "app",
+            "start_addr": "0x00011000",
+            "size": "1292K"
+        },
+        {
+            "firmware": "fs.bin",
+            "version": "1.00",
+            "partition": "filesystem",
+            "flash_name": "beken_onchip",
+            "start_addr": "0x00154000",
+            "size": "680K"
+        }
+    ]
+}

@@ -1,0 +1,8 @@
+from building import *
+
+src = Glob('*.c')
+CPPPATH = [os.path.join(GetCurrentDir(),'..')]
+
+group = DefineGroup('player_test', src, depend = [''], CPPPATH = CPPPATH)
+
+Return('group')

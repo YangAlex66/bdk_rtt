@@ -1,0 +1,11 @@
+# RT-Thread building script for component
+
+from building import *
+
+cwd = GetCurrentDir()
+src = Glob('*.c') + Glob('*.cpp') 
+CPPPATH = [cwd]
+
+group = DefineGroup('littlefs', src, depend = ['PKG_USING_LITTLEFS', 'RT_USING_DFS'], CPPPATH = CPPPATH)
+
+Return('group')

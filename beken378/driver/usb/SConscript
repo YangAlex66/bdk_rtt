@@ -1,0 +1,88 @@
+from building import *
+
+cwd  = GetCurrentDir()
+
+src = []
+src += ["src/cd/mu_cntlr.c"]
+src += ["src/cd/mu_descs.c"]
+src += ["src/cd/mu_drc.c"]
+src += ["src/cd/mu_fc.c"]
+src += ["src/cd/mu_fdr.c"]
+src += ["src/cd/mu_fun.c"]
+src += ["src/cd/mu_funex.c"]
+src += ["src/cd/mu_hc.c"]
+src += ["src/cd/mu_hdr.c"]
+src += ["src/cd/mu_hsdma.c"]
+src += ["src/cd/mu_hst.c"]
+src += ["src/cd/mu_list.c"]
+src += ["src/cd/mu_mdr.c"]
+src += ["src/cd/mu_pip.c"]
+
+src += ["src/drivers/comm/mu_comif.c"]
+src += ["src/drivers/hid/mu_hidif.c"]
+src += ["src/drivers/hid/mu_hidkb.c"]
+src += ["src/drivers/hid/mu_hidmb.c"]
+src += ["src/drivers/msd/mu_mapi.c"]
+src += ["src/drivers/msd/mu_mbot.c"]
+src += ["src/drivers/msd/mu_mscsi.c"]
+
+src += ["src/examples/msd/mu_msdfn.c"]
+
+src += ["src/hid/usb_hid.c"]
+
+src += ["src/lib/mu_bits.c"]
+src += ["src/lib/mu_stack.c"]
+src += ["src/lib/mu_stdio.c"]
+src += ["src/lib/mu_strng.c"]
+src += ["src/msc/usb_msd.c"]
+src += ["src/systems/none/afs/board.c"]
+src += ["src/systems/none/plat_uds.c"]
+src += ["src/uvc/usb_uvc.c"]
+src += ["src/uvc/uvc_driver.c"]
+
+path = []
+path += [cwd + '/']
+path += [cwd + '/include']
+path += [cwd + '/include/class']
+path += [cwd + '/src/cd']
+path += [cwd + '/src/drivers']
+path += [cwd + '/src/drivers/comm']
+path += [cwd + '/src/drivers/hid']
+path += [cwd + '/src/drivers/msd']
+path += [cwd + '/src/examples/msd']
+path += [cwd + '/src/hid']
+path += [cwd + '/src/lib']
+path += [cwd + '/src/msc']
+path += [cwd + '/src/systems/none/afs']
+path += [cwd + '/src/systems/none']
+path += [cwd + '/src/uvc']
+
+
+sys_config = os.path.join(cwd, '..', '..', '..', 'config', 'sys_config.h')
+options = LocalOptions(sys_config)
+
+usb_lib_name = 'usb'
+platform_match = 'yes'
+
+if (GetLocalDepend(options, 'CFG_SOC_NAME') == 'SOC_BK7231U'):
+    usb_lib_name += '_7231u'
+elif (GetLocalDepend(options, 'CFG_SOC_NAME') == 'SOC_BK7221U'):
+    usb_lib_name += '_7251'
+elif (GetLocalDepend(options, 'CFG_SOC_NAME') == 'SOC_BK7271'):
+    usb_lib_name += '_7271'
+else:
+    usb_lib_name += '_unknown'
+    platform_match = 'no'
+
+libs = [usb_lib_name]
+libpath = [cwd + '/']
+
+if (platform_match == 'yes') and (GetLocalDepend(options, 'CFG_USB') == 1):
+    print 'using usb: lib' + usb_lib_name + '.a'
+    group_use_lib = DefineGroup('beken_usb_lib', [], depend = [''], CPPPATH = path, LIBS = libs, LIBPATH = libpath)
+    group_build_lib = DefineGroup('beken_usb', src, depend = ['BUILD_LIB'], CPPPATH = path, LIBS = libs, LIBPATH = libpath, LIBNAME = 'lib' + usb_lib_name + '.a')
+    group = group_use_lib + group_build_lib
+else:
+    group = []
+
+Return('group')

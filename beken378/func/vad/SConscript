@@ -1,0 +1,24 @@
+from building import *
+
+cwd = GetCurrentDir()
+
+src = Glob('*.c')
+path = []
+path += [cwd + '/']
+
+
+vad_lib_name = 'vad'
+
+libs = [vad_lib_name]
+libpath = [cwd + '/']
+
+print 'using vad: lib' + vad_lib_name + '.a'
+
+group_use_lib = DefineGroup('beken_vad_lib', [], depend = [''], CPPPATH = path, LIBS = libs, LIBPATH = libpath)
+
+group_build_lib = DefineGroup('beken_vad', src, depend = ['BUILD_LIB'], CPPPATH = path, LIBS = libs, LIBPATH = libpath, LIBNAME = 'lib' + vad_lib_name + '.a')
+
+group = group_use_lib + group_build_lib
+
+
+Return('group')

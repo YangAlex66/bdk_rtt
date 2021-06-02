@@ -1,0 +1,13 @@
+# RT-Thread building script for component
+Import('RTT_ROOT')
+Import('rtconfig')
+
+from building import *
+
+cwd = GetCurrentDir()
+src = Glob('*.c')
+lib        = ["ezconfig_log"]
+libpath = [cwd]
+CPPPATH = [os.path.join(cwd,'..')]
+group = DefineGroup('ezconfig', src, depend = ['PKG_USING_TINYCRYPT','TINY_CRYPT_MD5','TINY_CRYPT_AES','TINY_CRYPT_AES_ROM_TABLES','TINY_CRYPT_BASE64'], CPPPATH = CPPPATH,LIBS=lib,LIBPATH = libpath)
+Return('group')

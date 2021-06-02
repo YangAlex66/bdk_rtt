@@ -1,0 +1,10 @@
+from building import *
+
+cwd     = GetCurrentDir()
+src     = Glob('*.c')
+
+CPPPATH = [os.path.join(cwd,'..')]
+
+group   = DefineGroup('bk_aware', src, depend = [], CPPPATH = CPPPATH)
+
+Return('group')

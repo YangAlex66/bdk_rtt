@@ -1,0 +1,47 @@
+from building import *
+
+cwd  = GetCurrentDir()
+
+src = []
+src += ["bk7231_cal.c"]
+src += ["manual_cal_bk7231.c"]
+src += ["bk7231U_cal.c"]
+src += ["bk7231N_cal.c"]
+src += ["bk7221U_cal.c"]
+src += ["manual_cal_bk7231U.c"]
+
+path = []
+path += [cwd + '/']
+
+sys_config = os.path.join(cwd, '..', '..', '..', 'config', 'sys_config.h')
+options = LocalOptions(sys_config)
+
+cal_lib_name = 'cal'
+platform_match = 'yes'
+
+if (GetLocalDepend(options, 'CFG_SOC_NAME') == 'SOC_BK7231U'):
+    cal_lib_name += '_7231u'
+elif (GetLocalDepend(options, 'CFG_SOC_NAME') == 'SOC_BK7231N'):
+    cal_lib_name += '_7231n'
+elif (GetLocalDepend(options, 'CFG_SOC_NAME') == 'SOC_BK7221U'):
+    cal_lib_name += '_7251'
+elif (GetLocalDepend(options, 'CFG_SOC_NAME') == 'SOC_BK7271'):
+    cal_lib_name += '_7271'
+else:
+    cal_lib_name += '_unknown'
+    platform_match = 'no'
+
+libs = [cal_lib_name]
+libpath = [cwd + '/']
+
+cppdefines = []
+
+if platform_match == 'yes':
+    print 'using cal: lib' + cal_lib_name + '.a'
+    group_use_lib = DefineGroup('beken_cal_lib', [], depend = [''], CPPPATH = path, CPPDEFINES = cppdefines, LIBS = libs, LIBPATH = libpath)
+    group_build_lib = DefineGroup('beken_cal', src, depend = ['BUILD_LIB'], CPPPATH = path, CPPDEFINES = cppdefines, LIBS = libs, LIBPATH = libpath, LIBNAME = 'lib' + cal_lib_name + '.a')
+    group = group_use_lib + group_build_lib
+else:
+    group = []
+
+Return('group')

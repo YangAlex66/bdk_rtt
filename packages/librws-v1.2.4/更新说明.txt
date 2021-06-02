@@ -1,0 +1,6 @@
+2020-05-27：
+更新Origin字段会带上端口号；
+
+2019-12-25：
+添加 rws_socket_handshake_fields_add(rws_socket socket, const char *fmt, ...); 函数用于添加自定义的握手字段
+函数使用方式在r ws_example.c 中；

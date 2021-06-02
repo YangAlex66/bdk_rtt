@@ -1,0 +1,6 @@
+opus -d 8000 1 test.opus test.opus.8000.pcm
+opus -d 16000 1 test.opus test.opus.16000.pcm
+
+opus -e voip 8000 1 test.opus.8000.pcm test.opus.8000.pcm.opus
+opus -d 8000 1 test.opus.8000.pcm.opus test.opus.8000.pcm.opus.pcm
+

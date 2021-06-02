@@ -1,0 +1,10 @@
+from building import *
+
+cwd     = GetCurrentDir()
+src     = Glob('*.c')
+
+CPPPATH = [os.path.join(cwd,'..')]
+
+group   = DefineGroup('ap_netconfig', src, depend = ['WEBNET_USING_CGI','PKG_USING_WEBNET'], CPPPATH = CPPPATH)
+
+Return('group')

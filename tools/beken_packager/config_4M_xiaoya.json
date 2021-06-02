@@ -1,0 +1,22 @@
+{
+    "magic": "RT-Thread",
+    "version": "0.1",
+    "count": 2,
+    "section": [
+        {
+            "firmware": "bootloader_bk7251_uart2_20200311_4M_xiaoya.bin",
+            "version": "2M.1220",
+            "partition": "bootloader",
+            "start_addr": "0x00000000",
+            "size": "65280"
+        },
+        {
+            "firmware": "../../rtthread.bin",
+            "version": "2M.1220",
+            "partition": "app",
+            "start_addr": "0x00011000",
+            "size": "1513K"
+        }
+
+    ]
+}

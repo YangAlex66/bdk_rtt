@@ -1,0 +1,10 @@
+# RT-Thread building script for component
+
+from building import *
+
+cwd     = GetCurrentDir()
+src     = Glob('*.c') + Glob('*.S')
+CPPPATH = [cwd,os.path.join(cwd,'..')]
+group = DefineGroup('key', src,depend = [''],CPPPATH = CPPPATH)
+
+Return('group')

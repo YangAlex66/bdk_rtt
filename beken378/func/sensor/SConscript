@@ -1,0 +1,29 @@
+from building import *
+
+cwd  = GetCurrentDir()
+
+src = []
+src += ["sensor.c"]
+
+path = []
+path += [cwd + '/']
+
+sys_config = os.path.join(cwd, '..', '..', '..', 'config', 'sys_config.h')
+options = LocalOptions(sys_config)
+
+sensor_lib_name = 'sensor'
+
+libs = [sensor_lib_name]
+libpath = [cwd + '/']
+
+
+if (GetLocalDepend(options, 'CFG_WIFI_SENSOR') == 1):
+    print 'using sensor: lib' + sensor_lib_name + '.a'
+    group_use_lib = DefineGroup('beken_sensor_lib', [], depend = [''], CPPPATH = path, LIBS = libs, LIBPATH = libpath)
+    group_build_lib = DefineGroup('beken_sensor', src, depend = ['BUILD_LIB'], CPPPATH = path, LIBS = libs, LIBPATH = libpath, LIBNAME = 'lib' + sensor_lib_name + '.a')
+    group = group_use_lib + group_build_lib
+else:
+    group = []
+
+
+Return('group')

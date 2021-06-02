@@ -1,0 +1,8 @@
+from building import *
+
+cwd     = GetCurrentDir()
+src     = Glob('*.c')
+CPPPATH = [cwd,os.path.join(cwd,'..')]
+group   = DefineGroup('ble', src, depend = [''], CPPPATH = CPPPATH)
+
+Return('group')
