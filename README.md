@@ -13,8 +13,8 @@ and [BK7231U-TODO-link](http://www.bekencorp.com/).
 Here is the getting started guides:
 
  - step1, purchase your board on [Board-link-TODO](http://www.bekencorp.com/) if you don't have the demo board.
- - step2, download the BDK FreeRTOS code on github [BDK RTT](https://github.com/bekencorp/bdk_rtt). For the non-github users,
-download the BDK FreeRTOS directly on [TODO-Download-Center-link](http://www.bekencorp.com/).
+ - step2, download the BDK RTT code on github [BDK RTT](https://github.com/bekencorp/bdk_rtt). For the non-github users,
+download the BDK RTT directly on [TODO-Download-Center-link](http://www.bekencorp.com/).
  - step3, read the [BDK RTT Doc](https://github.com/bekencorp/bdk_rtt/tree/release/v3.0/docs) for building, BIN downloading guides.
  - step4, download the toolchain on [Toolchain-TODO-link](http://www.bekencorp.com/) and [BIN Downloading Tools](http://www.bekencorp.com/)
  - step5, seek support on [BBS-TODO-link](http://www.bekencorp.com/), or report bugs on [Github Issue Forum](https://github.com/bekencorp/bdk_rtt/issues)
